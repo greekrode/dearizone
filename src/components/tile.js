@@ -3,7 +3,7 @@ import Image from './image'
 
 export default class Tile extends Component {
     _handleClick() {
-        this.props._openImageView(this.props.id)
+        this.props._openImageView(this.props.activeId)
     }
     render() {
         return (

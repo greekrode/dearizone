@@ -10,8 +10,9 @@ export default class Gallery extends Component {
         return (
             <div className="gallery fadeIn">
                 {
-                    this.props.data.map( data =>
-                        <Tile key={data.id}
+                    this.props.data.map((data, index) =>
+                        <Tile key={index}
+                              activeId={index}
                               id={data.id}
                               src={data.imageUrl}
                               name={data.name}

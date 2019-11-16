@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import store from './redux/store/store'
-import Menu from './menu2'
+import Menu from './menu'
 
 // //element where we'll mount our react app
 const rootElement = document.getElementById("root");

@@ -8,7 +8,7 @@ import ImageView from './components/imageView'
 import Modal from './components/modal'
 
 //main component that wraps major part of application
-class Menu2 extends Component {
+class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -138,4 +138,4 @@ const mapStateToProps = ({ menuItems, loading, errors }) => ({
 })
 
 //connecting our main component to redux store
-export default connect(mapStateToProps, {createItem, deleteItem, updateItem, readItems})(Menu2)
+export default connect(mapStateToProps, {createItem, deleteItem, updateItem, readItems})(Menu)
