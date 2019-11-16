@@ -76,6 +76,7 @@ class Menu extends Component {
         this.props.deleteItem(id)
         this.handleCancel();
         this._closeImageView()
+        this.props.readItems();
     }
 
     handleDeleteClick = () => {
