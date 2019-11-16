@@ -24,7 +24,6 @@ class Menu2 extends Component {
     componentDidMount() {
         this.props.readItems();
         this._loadData('https://api.myjson.com/bins/zygeu')
-        console.log(this.props.menuItems.length)
     }
 
     _openImageView(id) {

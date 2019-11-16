@@ -24,7 +24,7 @@ export default class DeleteModal extends Component {
         if ( this.props.password !== this.state.password ) {
             this.setState({ error: true, message: "Your password is incorrect!", password: ""})
         } else {
-            this.props.deleteItem(this.props._id)
+            this.props.deleteItem(this.props.id)
         }
     }
 

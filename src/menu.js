@@ -10,6 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
 import DeleteModal from './components/deleteModal'
+import uuid from 'uuid';
 
 //main component that wraps major part of application
 class Menu extends Component {
@@ -31,7 +32,6 @@ class Menu extends Component {
     }
 
     _openImageView(id) {
-        console.log(id)
         this.setState({
             activeID: id,
             imageView: true
@@ -58,6 +58,7 @@ class Menu extends Component {
         if (name === '') name = 'anon'
         if (imageUrl === '') imageUrl = 'https://imgur.com/OvAqP77.jpg'
         const newItem = {
+            id: uuid.v4(),
             name, message, imageUrl, password
         }
 
@@ -77,7 +78,6 @@ class Menu extends Component {
         this.props.deleteItem(id)
         this.handleCancel();
         this._closeImageView()
-        this.props.readItems();
     }
 
     handleDeleteClick = () => {
