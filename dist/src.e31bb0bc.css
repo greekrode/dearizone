@@ -189,8 +189,8 @@ a.float:hover + div.label-container{
 
 .imageview-image {
     display: block;
-    max-width:800px !important;
-    max-height:800px !important;
+    max-width:720px!important;
+    max-height:720px!important;
     width: auto;
     height: auto;
     box-shadow: 0 30px 60px -5px rgba(66, 66, 66, 0.7);
@@ -204,8 +204,8 @@ a.float:hover + div.label-container{
 }
 .imageview-info button {
     font-family: 'Oswald';
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 3rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: #e74c3c;
@@ -216,7 +216,6 @@ a.float:hover + div.label-container{
     margin: 0;
     padding: 0;
     position: absolute;
-    top: -2em;
     right: -1em;
 }
 .imageview-info button:hover {
