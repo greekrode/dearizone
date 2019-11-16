@@ -43486,9 +43486,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -43500,47 +43500,21 @@ function (_Component) {
   _inherits(ImageView, _Component);
 
   function ImageView(props) {
-    var _this;
-
     _classCallCheck(this, ImageView);
 
     console.log(props);
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ImageView).call(this, props));
-    _this.setWrapperRef = _this.setWrapperRef.bind(_assertThisInitialized(_this));
-    _this.handleClickOutside = _this.handleClickOutside.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(ImageView).call(this, props));
   }
 
   _createClass(ImageView, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      document.addEventListener('mousedown', this.props.handleClickOutside);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      document.addEventListener('mousedown', this.props.handleClickOutside);
-    }
-  }, {
-    key: "setWrapperRef",
-    value: function setWrapperRef(node) {
-      this.wrapperRef = node;
-    }
-  }, {
-    key: "handleClickOutside",
-    value: function handleClickOutside(event) {
-      if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-        this.props._closeImageView();
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
+        className: "layer"
+      }, _react.default.createElement("div", {
         className: "imageview-wrapper fadeIn"
       }, _react.default.createElement("div", {
-        className: "imageview",
-        ref: this.setWrapperRef
+        className: "imageview"
       }, _react.default.createElement(_image.default, {
         CSSClass: "imageview-image",
         src: this.props.imageUrl,
@@ -43553,7 +43527,7 @@ function (_Component) {
       }, "x"), _react.default.createElement("h2", null, this.props.name), _react.default.createElement("p", null, this.props.message), _react.default.createElement("p", null, _react.default.createElement(_reactMoment.default, {
         format: "YYYY/MM/DD HH:mm",
         local: true
-      }, this.props.created)))));
+      }, this.props.created))))));
     }
   }]);
 
@@ -64472,9 +64446,17 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+      return _react.default.createElement(_react.default.Fragment, null, this.state.imageView ? '' : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("h1", null, "DEAR ", _react.default.createElement("span", {
+        style: {
+          color: '#FF4D9D'
+        }
+      }, "IZ*ONE")), _react.default.createElement("p", {
+        className: "credits"
+      }, "By: ", _react.default.createElement("a", {
+        href: "https://twitter.com/GreekGod39"
+      }, "GreekGod39"))), _react.default.createElement("div", {
         className: "wrapper"
-      }, this.state.imageView ? '' : _react.default.createElement("h1", null, "DEAR IZ*ONE"), this.state.imageView ? _react.default.createElement(_imageView.default, _extends({}, this.props.menuItems[this.state.activeID], {
+      }, this.state.imageView ? _react.default.createElement(_imageView.default, _extends({}, this.props.menuItems[this.state.activeID], {
         _closeImageView: this._closeImageView.bind(this)
       })) : _react.default.createElement(_gallery.default, {
         data: this.props.menuItems,

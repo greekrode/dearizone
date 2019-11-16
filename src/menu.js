@@ -95,13 +95,17 @@ class Menu extends Component {
 
         return (
             <>
+                {
+                    this.state.imageView ?
+                        ''
+                        :
+                        <>
+                            <h1>DEAR <span style={{color: '#FF4D9D'}}>IZ*ONE</span></h1>
+                            <p className="credits">By: <a href="https://twitter.com/GreekGod39">GreekGod39</a></p>
+                        </>
+                }
+
                 <div className="wrapper">
-                    {
-                        this.state.imageView ?
-                            ''
-                            :
-                            <h1>DEAR IZ*ONE</h1>
-                    }
                     {
                         this.state.imageView ?
                             <ImageView {...this.props.menuItems[this.state.activeID]}

@@ -189,7 +189,7 @@ a.float:hover + div.label-container{
     max-height:1080px;
     width: auto;
     height: auto;
-    box-shadow: 0 20px 40px -5px rgba(66, 66, 66, 0.7);
+    box-shadow: 0 30px 60px -5px rgba(66, 66, 66, 0.7);
 }
 
 .imageview-info {
@@ -307,4 +307,21 @@ a.float:hover + div.label-container{
     animation-fill-mode: forwards;
     animation-duration: 1.5s;
     animation-delay: 0.1s;
+}
+
+.credits {
+    color: white;
+    font-family: "Roboto Light", sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.credits a {
+    text-decoration: none;
+    color: white;
+}
+
+.credits a:hover{
+    text-decoration: none;
+    color: hotpink;
 }
