@@ -30,8 +30,7 @@ const updateItem = async (req, reply) => {
 // It removes item from database
 const deleteItem = async (req, reply) => {
     try {
-        const { id } = req.params;
-        return await MenuItem.findOneAndDelete({id});
+        return await MenuItem.findOneAndDelete(req.params.id);
     }
     catch (err) { console.log(err) }
 }

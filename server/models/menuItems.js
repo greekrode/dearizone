@@ -4,6 +4,7 @@ const menuItemSchema = new mongoose.Schema({
     name: String,
     imageUrl: String,
     message: String,
+    password: String,
     created: { type: Date, default: Date.now }
 })
 

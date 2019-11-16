@@ -13,7 +13,10 @@ export default class Modal extends Component {
         this.state = {
             name: "",
             message: "",
-            imageUrl: ""
+            imageUrl: "",
+            password: "",
+            error: false,
+            helper: "This password will be required when you want to delete your message."
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -21,8 +24,15 @@ export default class Modal extends Component {
     handleCancel = () => this.props.closeForm();
 
     handleSubmit = () => {
-        const {name, message, imageUrl} = this.state
-        this.props.addItem({name, message, imageUrl})
+        const {name, message, imageUrl, password} = this.state
+        if (password === '') {
+            this.setState({
+                error: true,
+                helper: "Please fill in the password!"
+            })
+        } else {
+            this.props.addItem({name, message, imageUrl, password})
+        }
     }
 
     handleChange(event) {
@@ -51,11 +61,13 @@ export default class Modal extends Component {
                             onChange={this.handleChange}
                             id="outlined-required"
                             label="Name"
-                            helperText="Could be your initial"
+                            helperText="Could be your initial. Max. 20 characters"
                             margin="normal"
                             variant="outlined"
                             fullWidth
                             color="secondary"
+                            autoFocus
+                            inputProps={{ maxLength: 20}}
                         />
                         <TextField
                             required
@@ -63,6 +75,7 @@ export default class Modal extends Component {
                             value={this.state.message}
                             onChange={this.handleChange}
                             id="outlined-multiline-static"
+                            helperText="Max. 500 characters"
                             label="Message"
                             multiline
                             rows="8"
@@ -70,15 +83,29 @@ export default class Modal extends Component {
                             variant="outlined"
                             fullWidth
                             color="secondary"
+                            inputProps={{ maxLength: 500}}
                         />
                         <TextField
+                            name="password"
                             required
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            id="outlined-required"
+                            label="Password"
+                            helperText={this.state.helper}
+                            margin="normal"
+                            variant="outlined"
+                            fullWidth
+                            color="secondary"
+                            error={this.state.error}
+                        />
+                            <TextField
                             name="imageUrl"
                             value={this.state.imageUrl}
                             onChange={this.handleChange}
-                            id="outlined-required"
+                            id="outlined-basic"
                             label="Image URL"
-                            helperText="Upload your image to Imgur and paste the image URL here"
+                            helperText="Copy your image link here. Make sure you can preview the image URl on your browser."
                             margin="normal"
                             variant="outlined"
                             fullWidth

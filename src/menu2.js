@@ -138,8 +138,7 @@ class Menu2 extends Component {
                             <Gallery data={this.state.data}
                                      _openImageView={this._openImageView.bind(this)} />
                     }
-                   >
-                    {!this.state.openAddForm ? (
+                        {!this.state.openAddForm ? (
                         <>
                         <a href="#" onClick={this.handleAddClick} className="float">
                             <i className="fa fa-plus my-float"/>
@@ -153,7 +152,6 @@ class Menu2 extends Component {
                         <div className="menu"><Modal addItem={this.handleAddItem} closeForm={this.handleCancel}/></div>
                     )
                     }
-               >
                 </div>
             </>
         )

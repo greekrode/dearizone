@@ -4,7 +4,6 @@ import Moment from 'react-moment';
 
 export default class ImageView extends Component {
     constructor(props) {
-        console.log(props)
         super(props);
     }
 

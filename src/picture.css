@@ -1,6 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Oswald:300|Slabo+27px";
 body, html, #app {
-    width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,7 +7,14 @@ body, html, #app {
     align-items: center;
     background-image: url("https://imgur.com/UWnsgCk.jpg");
     background-repeat: no-repeat;
+    background-position: center;
     background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
 }
 
 .layer {
@@ -115,18 +121,16 @@ a.float:hover + div.label-container{
 }
 
 .gallery-tile {
-    min-width: 200px;
     margin: 0.25em;
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    flex: 25%;
-    max-width: 25%;
     padding: 0 4px;
 }
 .gallery-tile img {
-    width: 100%;
-    height: 100%;
+    height: 450px;
+    width: 450px;
+    object-fit: cover;
     transition: -webkit-transform 300ms ease-in-out, -webkit-filter 300ms ease-in-out;
     transition: transform 300ms ease-in-out, filter 300ms ease-in-out;
     transition: transform 300ms ease-in-out, filter 300ms ease-in-out, -webkit-transform 300ms ease-in-out, -webkit-filter 300ms ease-in-out;
@@ -185,8 +189,8 @@ a.float:hover + div.label-container{
 
 .imageview-image {
     display: block;
-    max-width:1080px;
-    max-height:1080px;
+    max-width:800px !important;
+    max-height:800px !important;
     width: auto;
     height: auto;
     box-shadow: 0 30px 60px -5px rgba(66, 66, 66, 0.7);

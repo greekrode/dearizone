@@ -6,6 +6,10 @@ import axios from 'axios'
 import Gallery from './components/gallery'
 import ImageView from './components/imageView'
 import Modal from './components/modal'
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close';
+import DeleteModal from './components/deleteModal'
 
 //main component that wraps major part of application
 class Menu extends Component {
@@ -13,14 +17,16 @@ class Menu extends Component {
         super(props);
         this.state = {
             openAddForm: false,
+            openDeleteForm: false,
             data: [],
             activeID: 0,
-            imageView: false
+            imageView: false,
+            open: false,
+            message: ""
         }
     }
 
     componentDidMount() {
-        // this._loadData('https://api.myjson.com/bins/zygeu')
         this.props.readItems();
     }
 
@@ -38,58 +44,45 @@ class Menu extends Component {
         })
     }
 
-    _loadData(url) {
-        fetch(url, {
-            method: 'GET'
+    handleClose = () =>  {
+        this.setState({
+            open: false
         })
-            .then(response => response.json())
-            .then(json => this.setState({
-                data: [...json.gallery]
-            }))
-            .catch((err) => {
-                console.log(err.message)
-                try {
-                    const xhr = new XMLHttpRequest()
-                    xhr.open('GET', url)
-                    xhr.responseType = 'json'
-
-                    xhr.onload = () => {
-                        let json = xhr.response
-                        this.setState({
-                            data: [...json.gallery]
-                        })
-                    }
-
-                    xhr.onerror = () => {
-                        throw new Error('XMLHttpRequest Failed...')
-                    }
-
-                    xhr.send()
-                } catch (e) {
-                    console.log(e.message)
-                }
-            })
     }
 
     //function to trigger form rendering
     handleAddClick = () => this.setState({ openAddForm: true });
 
     //function to handle item addition
-    handleAddItem = ({name, message, imageUrl}) => {
+    handleAddItem = ({name, message, imageUrl, password}) => {
         if (name === '') name = 'anon'
         const newItem = {
-            name, message, imageUrl
+            name, message, imageUrl, password
         }
 
         axios.post('/api/menuItems', { ...newItem }).then(({data : {name}}) => {
-            console.log(`${name} message added successfully`)
+            this.setState({ open: true, message: "Message submitted!" })
         }).catch(e => console.log("Addition failed , Error ", e));
 
         this.props.createItem(newItem);
         this.handleCancel();
     }
 
-    handleCancel = () => this.setState({ openAddForm: false });
+    handleDeleteItem = (id) => {
+        axios.delete(`api/menuItems/${id}`).then(() => {
+            this.setState({ open: true, message: "Message deleted!" })
+        }).catch(e => console.log("Deletion failed, Error ", e));
+
+        this.props.deleteItem(id)
+        this.handleCancel();
+        this._closeImageView()
+    }
+
+    handleDeleteClick = () => {
+        this.setState({ openDeleteForm: true });
+    }
+
+    handleCancel = () => this.setState({ openAddForm: false, openDeleteForm: false });
 
     render() {
 
@@ -114,22 +107,81 @@ class Menu extends Component {
                             <Gallery data={this.props.menuItems}
                                      _openImageView={this._openImageView.bind(this)}/>
                     }
-                    >
                     {!this.state.openAddForm ? (
                         <>
-                            <a href="#" onClick={this.handleAddClick} className="float">
-                                <i className="fa fa-plus my-float"/>
-                            </a>
-                            <div className="label-container">
-                                <div className="label-text">Submit</div>
-                                <i className="fa fa-play label-arrow"/>
-                            </div>
+                            {
+                                this.state.imageView ?
+                                    <>
+                                        <a href="#" onClick={this.handleDeleteClick} className="float">
+                                            <i className="fa fa-trash my-float"/>
+                                        </a>
+                                        <div className="label-container">
+                                            <div className="label-text">Delete</div>
+                                            <i className="fa fa-play label-arrow"/>
+                                        </div>
+                                    </>
+                                    :
+                                    <>
+                                        <a href="#" onClick={this.handleAddClick} className="float">
+                                            <i className="fa fa-plus my-float"/>
+                                        </a>
+                                        <div className="label-container">
+                                            <div className="label-text">Submit</div>
+                                            <i className="fa fa-play label-arrow"/>
+                                        </div>
+                                    </>
+                            }
                         </>
                     ) : (
                         <div className="menu"><Modal addItem={this.handleAddItem} closeForm={this.handleCancel}/></div>
                     )
                     }
-                    >
+
+                    {!this.state.openDeleteForm ? (
+                        <>
+                            {
+                                this.state.imageView ?
+                                    <>
+                                        <a href="#" onClick={this.handleDeleteClick} className="float">
+                                            <i className="fa fa-trash my-float"/>
+                                        </a>
+                                        <div className="label-container">
+                                            <div className="label-text">Delete</div>
+                                            <i className="fa fa-play label-arrow"/>
+                                        </div>
+                                    </>
+                                    :
+                                    ''
+                            }
+                        </>
+                    ) : (
+                        <div className="menu"><DeleteModal {...this.props.menuItems[this.state.activeID]} deleteItem={this.handleDeleteItem} closeForm={this.handleCancel}/></div>
+                    )
+                    }
+
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        open={this.state.open}
+                        autoHideDuration={6000}
+                        onClose={this.handleClose}
+                        ContentProps={{
+                            'aria-describedby': 'message-id',
+                        }}
+                        message={<span id="message-id">{this.state.message}</span>}
+                        action={[
+                            <IconButton
+                                key="close"
+                                aria-label="close"
+                                color="inherit"
+                                onClick={this.handleClose}
+                            >
+                                <CloseIcon />
+                            </IconButton>,
+                        ]}
+                    />
                 </div>
             </>
         )
