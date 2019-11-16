@@ -2,14 +2,12 @@ const mongoose = require('mongoose');
 const fastify = require('fastify')();
 const routes = require('./routes');
 const path = require('path')
-const {parsed : {MONGO_ATLAS_PW}} = require('dotenv').config();
 const DistPath = path.join(__dirname, '..', 'dist')
 
 //connect to mongodb atlas
 mongoose.connect('mongodb+srv://greekgod:GOaLQn2jKQedMkGO@dearizone-k0zlo.mongodb.net/test?retryWrites=true&w=majority', { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(e => console.log('MongoDB could not be connected due to ', e));
-
 
 //handles GET / request
 fastify.get('/', async (request, reply) => {
