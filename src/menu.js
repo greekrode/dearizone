@@ -56,6 +56,7 @@ class Menu extends Component {
     //function to handle item addition
     handleAddItem = ({name, message, imageUrl, password}) => {
         if (name === '') name = 'anon'
+        if (imageUrl === '') imageUrl = 'https://imgur.com/OvAqP77.jpg'
         const newItem = {
             name, message, imageUrl, password
         }
