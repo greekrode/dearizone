@@ -8,7 +8,8 @@
     "client": "parcel src/index.html",
     "server": "node server/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "node server/server.js",
+    "build": "parcel build src/index.html"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "axios": "^0.19.0",
     "components": "^0.1.0",
     "concurrently": "^5.0.0",
+    "config": "^3.2.4",
     "dotenv": "^8.2.0",
     "fastify": "^2.10.0",
     "fastify-static": "^2.5.0",
@@ -26,6 +28,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "mongoose": "^5.7.9",
+    "parcel-bundler": "^1.12.4",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.11.0",
@@ -40,8 +43,7 @@
     "redux-thunk": "^2.3.0",
     "src": "^1.1.2",
     "uuid": "^3.3.3",
-    "yarn": "^1.19.1",
-    "parcel-bundler": "^1.12.4"
+    "yarn": "^1.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",

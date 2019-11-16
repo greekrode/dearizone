@@ -1,0 +1,2 @@
+db:
+  uri: "mongodb+srv://greekgod:GOaLQn2jKQedMkGO@dearizone-k0zlo.mongodb.net/test?retryWrites=true&w=majority"
