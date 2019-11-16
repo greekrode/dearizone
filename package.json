@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "parcel src/index.html",
-    "server": "nodemon server/server.js",
+    "server": "node server/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
