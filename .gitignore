@@ -3,4 +3,3 @@
 .env
 .cache
 package-lock.json
-/dist

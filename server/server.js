@@ -17,6 +17,20 @@ fastify.get('/', async (request, reply) => {
     catch (e) { console.log(e) }
 });
 
+fastify.get('/robots.txt', async (request, reply) => {
+    try {
+        return reply.sendFile('robots.txt')
+    }
+    catch (e) { console.log(__dirname) }
+});
+
+fastify.get('/sitemap.xml', async (request, reply) => {
+    try {
+        return reply.sendFile('sitemap.xml')
+    }
+    catch (e) { console.log(__dirname) }
+});
+
 //iterating over all the routes and registering them with fastify
 routes.forEach(route => fastify.route(route))
 
