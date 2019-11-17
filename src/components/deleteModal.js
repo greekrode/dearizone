@@ -60,7 +60,6 @@ export default class DeleteModal extends Component {
                                 variant="outlined"
                                 fullWidth={true}
                                 color="primary"
-                                autoFocus
                             />
                         </form>
                     </DialogContent>

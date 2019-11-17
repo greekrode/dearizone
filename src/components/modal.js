@@ -46,6 +46,8 @@ export default class Modal extends Component {
                 <Dialog
                     open={true}
                     onClose={this.handleCancel}
+                    onEscapeKeyDown={this.handleCancel}
+                    disableEscapeKeyDown={false}
                     keepMounted
                     aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Submit your message</DialogTitle>
@@ -66,7 +68,6 @@ export default class Modal extends Component {
                             variant="outlined"
                             fullWidth
                             color="secondary"
-                            autoFocus
                             inputProps={{ maxLength: 20}}
                         />
                         <TextField

@@ -23,18 +23,37 @@ class Menu extends Component {
             activeID: 0,
             imageView: false,
             open: false,
-            message: ""
+            message: "",
+            position: 0
         }
     }
 
     componentDidMount() {
         this.props.readItems();
+        window.addEventListener('scroll', this.listenToScroll)
+    }
+
+    listenToScroll = () => {
+        const winScroll =
+            document.body.scrollTop || document.documentElement.scrollTop
+
+        const height =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight
+
+        const scrolled = winScroll / height
+
+        if (!this.state.imageView) {
+            this.setState({
+                position: scrolled
+            })
+        }
     }
 
     _openImageView(id) {
         this.setState({
             activeID: id,
-            imageView: true
+            imageView: true,
         })
     }
 
@@ -42,6 +61,7 @@ class Menu extends Component {
         this.setState({
             imageView: false
         })
+        // window.scrollTo(0, this.state.position)
     }
 
     handleClose = () =>  {
@@ -101,27 +121,18 @@ class Menu extends Component {
                 }
 
                 <div className="wrapper">
+                    <Gallery data={this.props.menuItems}
+                             _openImageView={this._openImageView.bind(this)}/>
                     {
-                        this.state.imageView ?
-                            <ImageView {...this.props.menuItems[this.state.activeID]}
+                        this.state.imageView &&
+                        <ImageView {...this.props.menuItems[this.state.activeID]}
                                        _closeImageView={this._closeImageView.bind(this)}/>
-                            :
-                            <Gallery data={this.props.menuItems}
-                                     _openImageView={this._openImageView.bind(this)}/>
                     }
                     {!this.state.openAddForm ? (
                         <>
                             {
                                 this.state.imageView ?
-                                    <>
-                                        <a href="#" onClick={this.handleDeleteClick} className="float">
-                                            <i className="fa fa-trash my-float"/>
-                                        </a>
-                                        <div className="label-container">
-                                            <div className="label-text">Delete</div>
-                                            <i className="fa fa-play label-arrow"/>
-                                        </div>
-                                    </>
+                                    ''
                                     :
                                     <>
                                         <a href="#" onClick={this.handleAddClick} className="float">

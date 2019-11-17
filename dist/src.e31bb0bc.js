@@ -64213,6 +64213,8 @@ function (_Component) {
       return _react.default.createElement("div", null, _react.default.createElement(_Dialog.default, {
         open: true,
         onClose: this.handleCancel,
+        onEscapeKeyDown: this.handleCancel,
+        disableEscapeKeyDown: false,
         keepMounted: true,
         "aria-labelledby": "form-dialog-title"
       }, _react.default.createElement(_DialogTitle.default, {
@@ -64232,7 +64234,6 @@ function (_Component) {
         variant: "outlined",
         fullWidth: true,
         color: "secondary",
-        autoFocus: true,
         inputProps: {
           maxLength: 20
         }
@@ -65497,8 +65498,7 @@ function (_Component) {
         margin: "normal",
         variant: "outlined",
         fullWidth: true,
-        color: "primary",
-        autoFocus: true
+        color: "primary"
       }))), _react.default.createElement(_DialogActions.default, null, _react.default.createElement(_Button.default, {
         onClick: this.handleCancel,
         color: "secondary"
@@ -65806,6 +65806,18 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Menu).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "listenToScroll", function () {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = winScroll / height;
+
+      if (!_this.state.imageView) {
+        _this.setState({
+          position: scrolled
+        });
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "handleClose", function () {
       _this.setState({
         open: false
@@ -65886,7 +65898,8 @@ function (_Component) {
       activeID: 0,
       imageView: false,
       open: false,
-      message: ""
+      message: "",
+      position: 0
     };
     return _this;
   }
@@ -65895,6 +65908,7 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.readItems();
+      window.addEventListener('scroll', this.listenToScroll);
     }
   }, {
     key: "_openImageView",
@@ -65909,7 +65923,7 @@ function (_Component) {
     value: function _closeImageView() {
       this.setState({
         imageView: false
-      });
+      }); // window.scrollTo(0, this.state.position)
     }
   }, {
     key: "render",
@@ -65924,24 +65938,12 @@ function (_Component) {
         href: "https://twitter.com/GreekGod39"
       }, "GreekGod39"))), _react.default.createElement("div", {
         className: "wrapper"
-      }, this.state.imageView ? _react.default.createElement(_imageView.default, _extends({}, this.props.menuItems[this.state.activeID], {
-        _closeImageView: this._closeImageView.bind(this)
-      })) : _react.default.createElement(_gallery.default, {
+      }, _react.default.createElement(_gallery.default, {
         data: this.props.menuItems,
         _openImageView: this._openImageView.bind(this)
-      }), !this.state.openAddForm ? _react.default.createElement(_react.default.Fragment, null, this.state.imageView ? _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("a", {
-        href: "#",
-        onClick: this.handleDeleteClick,
-        className: "float"
-      }, _react.default.createElement("i", {
-        className: "fa fa-trash my-float"
-      })), _react.default.createElement("div", {
-        className: "label-container"
-      }, _react.default.createElement("div", {
-        className: "label-text"
-      }, "Delete"), _react.default.createElement("i", {
-        className: "fa fa-play label-arrow"
-      }))) : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("a", {
+      }), this.state.imageView && _react.default.createElement(_imageView.default, _extends({}, this.props.menuItems[this.state.activeID], {
+        _closeImageView: this._closeImageView.bind(this)
+      })), !this.state.openAddForm ? _react.default.createElement(_react.default.Fragment, null, this.state.imageView ? '' : _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("a", {
         href: "#",
         onClick: this.handleAddClick,
         className: "float"
@@ -66079,7 +66081,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52443" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62453" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
