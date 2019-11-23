@@ -61,7 +61,6 @@ class Picture extends Component {
         this.setState({
             imageView: false
         })
-        // window.scrollTo(0, this.state.position)
     }
 
     handleClose = () =>  {

@@ -7,11 +7,33 @@ export default class ImageView extends Component {
         super(props);
     }
 
+    componentWillMount() {
+        document.addEventListener('click', this.handleClickOutside, false)
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, false)
+        document.addEventListener("keydown", this.escFunction, false);
+    }
+
+    handleClickOutside = (e) => {
+        if (!this.imageViewRef.contains(e.target)) {
+            this.props._closeImageView();
+        }
+    }
+
+    escFunction = (e) => {
+        if (e.keyCode === 27) {
+            this.props._closeImageView();
+        }
+    }
+
     render() {
         return (
             <div className="layer">
             <div className="imageview-wrapper fadeIn">
-                <div className="imageview" >
+                <div className="imageview" ref={node => this.imageViewRef = node}>
                     <Image CSSClass="imageview-image"
                            src={this.props.imageUrl}
                            alt={this.props.name} />
